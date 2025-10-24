@@ -34,7 +34,6 @@ As shown in the figure below, we developed a hardware prototype for physically i
 
 
 
-[Detailed Topology](./doc/pdf/detailed_topology.pdf)
 
 
 ## Main dependencies
@@ -379,6 +378,17 @@ The figure below shows APD for several IoT nodes considering three Multi-LoRa se
 <p align="center">
     <img src="img/Simulation.png" height="300"/> 
 </p>
+
+
+
+
+
+
+
+
+
+[Detailed Topology](./doc/pdf/detailed_topology1.png)
+
 
 ## How to cite
 
