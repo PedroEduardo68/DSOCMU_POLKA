@@ -383,9 +383,9 @@ The figure below shows APD for several IoT nodes considering three Multi-LoRa se
 
 
 
-<p align="center">
-    <img src="/doc/img/detailed_topology1.png" height="300"/> 
-</p>
+
+<img src="doc/img/detailed_topology1.png" fullwith /> 
+
 
 
 
