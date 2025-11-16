@@ -11,7 +11,7 @@ of OpenRAN. The proposed architecture employs polynomial functions as an encodin
 thereby eliminating the need for state tables in intermediate nodes. The system leverages polynomial interpolation algorithms to determine paths between Distributed Units (DUs) and Centralized Units (CUs).
 </p>
 
-## Multi-LoRa architecture
+## Architecture
 
 <p align="justify">
 The project proposes the implementation of the POLKA protocol specifically adapted for mobile and ubiquitous computing environments, utilizing programmable switches as the technological foundation. This software represents an advanced solution for the growing challenges of connectivity and routing in heterogeneous networks, where mobile devices constantly transition between different access points and network infrastructures.
@@ -21,7 +21,7 @@ The project proposes the implementation of the POLKA protocol specifically adapt
     <img src="img/arch.png" height="600"/> 
 </p>
 
-## Multi-LoRa prototype
+## Prototype
 
 <p align="justify">
 As shown in the figure below, we developed a hardware prototype for physically implementing the Multi-LoRa architecture consisting of hardware and software implementation. Each node shares the same hardware structure and main firmware. In terms of hardware implementation, each node is composed of an Espressif Esp32 microcontroller (dual-core 32-bit LX6 microprocessor, operating at 240 MHz and performing at up to 600 DMIPS, Ultra-Low-Power co-processor, 520 KB SRAM, 448 KB ROM), two LoRa radios SX1276, and energy source with a capacity of 2100 mAh. We implemented the MAC, routing, and application layer protocols on device firmware using the C programming language in software implementation. Specifically, we implemented the LBT communication model at the MAC layer, the Babel routing protocol (RFC8966) at the network layer, and Modbus at the application layer. 
@@ -67,18 +67,27 @@ Software:
 </ol>
 
 
-### 3° Build and installation - Switch Barefoot Tofino Networks
 
-#### Requirements
+
+
+
+
+
+
+## Build and installation - Switch Barefoot Tofino Networks
+
+#### > Requirements
 
 
 <ul start="1">
     <li>Access to the serial console and management network.</li>
     <li>Ubuntu OS image compatible with the hardware (.bin file).</li>
+    <li>Intel Tofino in DataPlan of the switch./li>
 </ul>
 
+### >> Install Ubuntu Focal.
 
-#### Method A: Installation via USB
+#### > Method A: Installation via USB
 
 Prepare the USB flash drive
    
@@ -107,7 +116,7 @@ Install Ubuntu
 </ul>
 
 
-####  Método B: Instalação via Servidor HTTP
+#### > Método B: Instalação via Servidor HTTP
 
 Disponibilizar os Arquivos no Servidor Apache/HTTP
 
@@ -128,7 +137,7 @@ Remove the current operating system.
 
 
 Install Ubuntu
-<ul>
+<ul>🔗
     <li>Reboot Switch → ONIE Menu → ONIE: Install OS → Reboot</li>
 </ul>
 
@@ -146,16 +155,189 @@ ifconfig eth0 10.x.x.x netmask 255.255.255.0
 ip route add default via 10.x.x.254
 ```
    
-Command Install Ubuntu
+Command InstaErro durante a explicação e o motivoll Ubuntu
+
+```
+onie-nos-install http://10.21.0.6/ubuntu-focal-amd64-mini-ONIE.bin
+```
+
+
+
+
+#### > Error during explanation and the reason.
+
+During the installation of Ubuntu Focal, the process did not complete successfully. A compatibility issue related to the disk and hardware occurred. Even after the Ubuntu image was installed and the verification (check) was completed, the operating system would not boot — only SONiC was loaded. Consequently, SONiC was reinstalled using the image downloaded from www.edge-core.com, following a support ticket with the SONiC team.
+
+Image name: sonic-broadcom-enterprise-base.bin.
+
+
+Below is the Switch information for requesting the firmware.
 
 ```bash
-onie-nos-install http://10.0.0.200/ubuntu-focal-amd64-mini-ONIE.bin
+Platform  : x86_64-accton_as9516_32d-r0
+Version   : 2019.05.00.04
+Build Date: 2019-07-24T13:52+0800
+fpga version 00/00/ 0 00:00:00bf_fpga probe ok
+ata1.00: failed to set xfermode (err_mask=0x40)
+Info: Mounting kernel filesystems... done.
+Info: Mounting ONIE-BOOT on /mnt/onie-boot ...
+ERROR: fsck corrected errors.
+Info: Mounting EFI System on /boot/efi ...
+Info: BIOS mode: UEFI
+Running Accton AS9516_32D
 ```
+
+
+
+```bash
+ONIE:/ #  cat /etc/machine.conf
+onie_version=2019.05.00.04
+onie_vendor_id=259
+onie_build_machine=accton_as9516_32d
+onie_machine_rev=0
+onie_arch=x86_64
+onie_build_platform=x86_64-accton_as9516_32d-r0
+onie_config_version=1
+onie_build_date="2019-07-24T13:52+0800"
+onie_partition_type=gpt
+onie_kernel_version=4.9.95
+onie_firmware=auto
+onie_switch_asic=bfn
+onie_skip_ethmgmt_macs=no
+onie_grub_image_name=grubx64.efi
+onie_uefi_boot_loader=grubx64.efi
+onie_uefi_arch=x64
+onie_machine=accton_as9516_32d
+onie_platform=x86_64-accton_as9516_32d-r0
+```
+
+
+### >> Install SONIC.
+
+
+basicamnete precisa apenas fazer o ddowanload por HTTP
+
+onie-nos-install http://10.21.0.6/sonic-broadcom-enterprise-base.bin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```bash
+cat machine.conf
+onie_arch=x86_64
+onie_bin=
+onie_boot_fs_type=ext4
+onie_boot_gfdisk_type=0x3000
+onie_boot_gpt_uuid= #####
+onie_boot_label=ONIE-BOOT
+onie_boot_mnt=/mnt/onie-boot
+onie_boot_reason=install
+onie_build_date=2019-07-24T13:52+0800
+onie_build_machine=accton_as9516_32d
+onie_build_platform=x86_64-accton_as9516_32d-r0
+onie_cli_static_parms=
+onie_cli_static_url=http://10.21.0.6/sonic-broadcom-enterprise-base.bin
+onie_config_dir=/mnt/onie-boot/onie/config
+onie_config_version=1
+onie_default_filename=onie-installer-x86_64-accton_as9516_32d-r0
+onie_default_filenames=onie-installer-x86_64-accton_as9516_32d-r0
+onie_dev=/dev/sda2
+onie_exec_url=http://10.21.0.6/sonic-broadcom-enterprise-base.bin
+onie_firmware=auto
+onie_grub_image_name=grubx64.efi
+onie_iana_enterprise=42623
+onie_image_suffixes=.bin
+onie_image_type_nos=nos
+onie_image_type_update=update
+onie_initrd_tmp=/
+onie_installer=/var/tmp/installer
+onie_kernel_version=4.9.95
+onie_machine=accton_as9516_32d
+onie_machine_rev=0
+onie_operation=os-install
+onie_partition_type=gpt
+onie_platform=x86_64-accton_as9516_32d-r0
+onie_root_dir=/mnt/onie-boot/onie
+onie_server_name=onie-server
+onie_skip_ethmgmt_macs=no
+onie_switch_asic=bfn
+onie_uefi_arch=x64
+onie_uefi_boot_loader=grubx64.efi
+onie_update_attempts_dir=/mnt/onie-boot/onie/update/attempts
+onie_update_dir=/mnt/onie-boot/onie/update
+onie_update_log=/mnt/onie-boot/onie/update/update.log
+onie_update_pending_dir=/mnt/onie-boot/onie/update/pending
+onie_update_results_dir=/mnt/onie-boot/onie/update/results
+onie_updater_cookie=ONIE-UPDATER-COOKIE
+onie_vendor_id=259
+onie_version=2019.05.00.04
+```
+
+
+
+
+
+
+
+
+Debian GNU/Linux 9 sonic ttyS1
+
+sonic login: admin
+Password: YourPaSsWoRd
+
+
+
+Reference of the de procediment.
+
+
+BFSDE install:
+
+🔗 git clone https://github.com/eversonscherrer/ubuntu-onie.git
+https://twiki.cern.ch/twiki/bin/view/Main/Bfsde_installation
+
 
 Reference video for the installation of both methods.
 
+🔗 git clone https://github.com/eversonscherrer/ubuntu-onie.git
 🔗 https://www.youtube.com/watch?v=vNfMWjSmgfg 
 🔗 https://www.youtube.com/watch?v=oRn9Bb3AsVs
+🔗 https://www.youtube.com/watch?v=Zakdfj3U2yg
+
+https://wiki.geant.org/spaces/GP4L/pages/361365655/Home
+
+GitHub - wililupy/ubuntu-onie
+Contribute to wililupy/ubuntu-onie development by creating an account on GitHub.
+github.com
+https://github.com/wililupy/ubuntu-onie
+
+
+
+GitHub - mariusz-stordis/ubuntu-onie: Working with UEFI and add Onie boot option.
+Working with UEFI and add Onie boot option. Contribute to mariusz-stordis/ubuntu-onie development by creating an account on GitHub.
+github.com
+https://github.com/mariusz-stordis/ubuntu-onie
+
 
 
 
@@ -336,10 +518,7 @@ pktID, srcAddre, destAddr, startTime, dataPayload
 
 ```
 <p align="justify">
-You must have the firmware compiled to start the simulation.
-The simulator will launch Linux processes with the binary compiled from the firmware.
-It also emulates the physical medium, indicating the airtime of each packet and indicating which nodes are in range to send, based on the topology.csv file.
-Each simulation cycle is equivalent to 1 ms and based on that time, the packets listed in the packets.csv file are sent.
+
 </p>
 Start simulation.
 
@@ -360,19 +539,18 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 ## Main results
 
 <p align="justify">
-We evaluated the Multi-LoRa prototype considering two approaches: a small-scale based on a physical testbed and a large-scale using a simulation environment. The testbed results are investigated to calibrate the simulation experiments and analyze the performance of Multi-LoRa in real experiments. Moreover, the simulation experiments evaluated Multi-LoRa concerning delay and data delivery in a large-scale scenario. Furthermore, it is necessary to highlight that our simulation used the same source code prototyped in the testbed.
+
 </p>
 
 <p align="justify">
-The figure below shows the delay for transmitting packets with different sizes considering three Multi-LoRa setups in the testbed environment. The delay results show that Average Packet Delay (APD) increases as soon as the packet size increases for transmitting data over Setup 1. Moreover, multi-radio architecture, i.e., Setup 2 and Setup 3 of Multi-LoRa, increases the APD lower than single-radio architecture for larger packet sizes. The weak performance of single-radio architecture is due to the half-duplex nature of the LoRa radio, where the queuing time on each hop is higher. For instance, packets with 256 bytes have APD 495% higher than the packet size of 32 bytes by transmitting the packet over Setup 1. We divide each data packet into two small packets to transmit over each radio on Setup 2 and Setup 3, reducing the transmission time. Finally, it is possible to conclude that Setup 3 provides lower APD regardless of the packet size compared to the other architectures. It considers packet transmission over multiple radios to mitigate the half-duplex nature of the LoRa radio, and the BW value of 250 kHz helps reduce APD.
-</p>
+
 
 <p align="center">
     <img src="img/testbed.png" height="300"/> 
 </p>
     
 <p align="justify">
-The figure below shows APD for several IoT nodes considering three Multi-LoRa setups in the simulation environment. The APD results for large scale-scenario show that Setup 3 provides APD 61.5% and 26% lower than Setup 1 and Setup 2. This behavior happens because Setup 3 considers a multi-radio transmission with a better radio configuration (i.e., BW and SF values). For instance, the packet with a payload of 128 bytes transmitted with SF 7 and BW of 125 kHz has a ToA value of 332.03 ms, while SF 7 and BW of 250 kHz has a ToA average value of 166.02 ms. This result explains why the APD performance of Multi-LoRa - Setup 3 is 50% better than Setup 2. Finally, Setup 2 provides APD results 75% better than Setup 1 since Setup 2 considers two LoRa radios for transmitting data, reducing the effects of a half-duplex nature of the LoRa radio.
+
 </p>
 
 <p align="center">
