@@ -214,10 +214,34 @@ onie_platform=x86_64-accton_as9516_32d-r0
 
 ### >> Install SONIC.
 
+basicamnete precisa apenas fazer o ddowanload por HTTP 
 
-basicamnete precisa apenas fazer o ddowanload por HTTP
-
+```bash
 onie-nos-install http://10.21.0.6/sonic-broadcom-enterprise-base.bin
+```
+
+```bash
+Debian GNU/Linux 9 sonic ttyS1
+
+sonic login: admin
+Password: YourPaSsWoRd
+```
+
+
+For the message "Zero Touch Provisioning discovery in progress. Please disable ZTP or logout." uses the command: 
+
+```bash
+sudo ztp disable
+yes
+```
+
+Then, stop all containers to start a new container with the compiler.
+
+```bash
+docker ps
+
+docker stop [ID CONTAINER]
+``` 
 
 
 
@@ -229,19 +253,7 @@ onie-nos-install http://10.21.0.6/sonic-broadcom-enterprise-base.bin
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+Switch information from ONIE after uploading SONIC.
 
 ```bash
 cat machine.conf
@@ -299,12 +311,6 @@ onie_version=2019.05.00.04
 
 
 
-
-
-Debian GNU/Linux 9 sonic ttyS1
-
-sonic login: admin
-Password: YourPaSsWoRd
 
 
 
