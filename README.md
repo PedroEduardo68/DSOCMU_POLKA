@@ -241,11 +241,15 @@ Then, stop all containers to start a new container with the compiler.
 docker ps
 
 docker stop [ID CONTAINER]
+docker system prune -af
 ``` 
 
 
+```bash
+docker build -t sdep4 .
+docker run -it sdep4 /bin/bash
 
-
+``` 
 
 
 
