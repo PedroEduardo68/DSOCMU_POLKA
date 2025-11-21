@@ -230,9 +230,12 @@ Password: YourPaSsWoRd
 
 For the message "Zero Touch Provisioning discovery in progress. Please disable ZTP or logout." uses the command: 
 
+Too, install apps for network diagnostic.
+
 ```bash
 sudo ztp disable
 yes
+apt-get install nano htop mtr telnet
 ```
 
 Then, stop all containers to start a new container with the compiler.
@@ -252,9 +255,11 @@ docker run -it sdep4 /bin/bash
 ``` 
 
 
-
-
-
+s
+```bash
+docker run --rm alpine ping -c 3 8.8.8.8
+docker run --rm alpine wget -qO- http://google.com
+``` 
 
 
 Switch information from ONIE after uploading SONIC.
@@ -311,19 +316,12 @@ onie_version=2019.05.00.04
 ```
 
 
+#### > Reference of the de procediment.
 
 
+BF_SDE install:
 
-
-
-
-
-Reference of the de procediment.
-
-
-BFSDE install:
-
-🔗 git clone https://github.com/eversonscherrer/ubuntu-onie.git
+🔗 https://github.com/eversonscherrer/ubuntu-onie.git
 https://twiki.cern.ch/twiki/bin/view/Main/Bfsde_installation
 
 
@@ -357,7 +355,7 @@ https://github.com/mariusz-stordis/ubuntu-onie
 
 olha para abaixo 
 
-
+<!-- 
 
 
 1 - You need to get the following packages to compile prototype bare-metal firmware using ESP-IDF. 
@@ -585,4 +583,4 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 
 
 }
-```
+``` -->
