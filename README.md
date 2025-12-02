@@ -42,16 +42,34 @@ The image shows two locations interconnected by a high-capacity link labeled “
 ## Prototype
 
 <p align="justify">
-As shown in the figure below, we developed a hardware prototype for physically implementing the Multi-LoRa architecture consisting of hardware and software implementation. Each node shares the same hardware structure and main firmware. In terms of hardware implementation, each node is composed of an Espressif Esp32 microcontroller (dual-core 32-bit LX6 microprocessor, operating at 240 MHz and performing at up to 600 DMIPS, Ultra-Low-Power co-processor, 520 KB SRAM, 448 KB ROM), two LoRa radios SX1276, and energy source with a capacity of 2100 mAh. We implemented the MAC, routing, and application layer protocols on device firmware using the C programming language in software implementation. Specifically, we implemented the LBT communication model at the MAC layer, the Babel routing protocol (RFC8966) at the network layer, and Modbus at the application layer. 
+
+#### > I. DATACENTER – POP RJ – RNP
+
+SONiC P4-3 Switch — EdgeCore 9516-32D-O-AC-F (Tofino 2) Type/function: High-performance backbone/aggregation switch, central switching point of the datacenter. Interconnects ToR switches and aggregation switches via 100GbE. Notable connectivity: 100GbE for the ToR Management Switch (UfiSpace S960072XC). 100GbE for Switch P4-2 (Tofino 1) and Switch P4-1 (Tofino 1). Processing resources: Operating system: SONiC (Linux-based). CPU: Embedded x86 multi-core for control plane (typically Intel Atom or Xeon D). Memory: Typically 16 GB to 64 GB (or more) for OS tables and services.
+
+ToR Management Switch — UfiSpace S960072XC Type/function: Top-of-Rack and management switch; aggregates server traffic (10/25/40GbE) and provides 40/100GbE uplinks to the backbone, in addition to the intersite link (10GbE) with the Rio Network Room. Notable connectivity: 100GbE uplink to the SONiC P4-3 Switch. 10/40GbE to the ORAN-CLOUD6 SERVER T03 server. 10GbE to the FALCON-RX GrandMaster Switch (Rio Network Room). Processing resources: Operating system: UfiSpace proprietary OS, SONiC or ONL (varies by load). CPU: embedded multi-core processor (ARM Cortex-A or Intel Atom) for control. Memory: typically 8 GB to 32 GB.
+
+ORAN-CLOUD6 SERVER — T03 — SuperMicro SYS-220U-MTNR Type/Function: High-performance x86 server for O-RAN functions (VNFs, processing, and storage). Notable Connectivity: 10GbE (SFP+) and 40GbE (QSFP+) NICs for the ToR Management Switch. 1GbE for management. Processing Resources: Operating System: Linux (Ubuntu/CentOS/RHEL) or hypervisor (VMware ESXi, Proxmox, OpenStack). CPU: 2× Intel Xeon Scalable (multi-core; dozens of cores combined). Memory: High capacity, typically 128 GB to 1 TB+ (for VNFs and intensive workloads).
+
+Switch P4-2 (Tofino 1) and Switch P4-1 (Tofino 1) — EdgeCore WEdge100bF-32QS-O-AC-F Type/function: High-density 100GbE switches, used for 100G mesh aggregation/expansion. Notable connectivity: 100GbE for the P4-3 SONiC switch. Processing resources: Operating system: SONiC or equivalent open OS. CPU: Embedded x86 multi-core (e.g., Intel Atom/Xeon D) for control plane. Memory: Typically 16 GB to 64 GB. 
+
+
+#### > II. Rio Network Room – CBPF – RNP
+
+FALCON-RX GrandMaster Switch Type/function: Site access/aggregation switch and likely GrandMaster Clock (precise synchronization for 5G). Concentrates the 10GbE link coming from the data center, connects DU/CU, O-RU, and test devices. Notable connectivity: 10GbE from the ToR Management Switch (Datacenter RJ). 10GbE for O-RAN CLOUD 5 — T02 (DU/CU). 1GbE for FOXCONN O-RU 1, Raspberry Pi, and Laptop (UE Link). Processing capabilities: Operating system: Manufacturer's proprietary OS (carrier/telecom class). CPU: Embedded multi-core processor (ARM Cortex-A or MIPS) for control/timing. Memory: Typically 4 GB to 16 GB.
+
+FIBLOLAN-FALCON RX Type/function: Optical infrastructure/fiber distribution equipment associated with the GrandMaster Switch (supports fiber management and interconnection). Notable connectivity: Management interfaces (MGMT) and optical ports/modules (not detailed). Processing capabilities: Operating system: Embedded RTOS or Linux. CPU: Low-power ARM Cortex-M/A. Memory: Approximately 256 MB to 2 GB.
+O-RAN CLOUD 5 — T02 (DU/CU) — SuperMicro SYS-220U-MTNR Type/function: Server hosting DU (real-time baseband) and CU (control plane), core of the 5G O-RAN base station. Notable connectivity: 10GbE (SFP+, VLAN 161) for the FALCON-RX GrandMaster Switch. 1GbE built-in for management via FALCON-RX. Processing resources: Operating system: Real-time optimized Linux (PREEMPT_RT kernel) or RT-tuned hypervisor. CPU: 2× Intel Xeon Scalable (critical for DU processing and CU control). Memory: typically 128 GB to 1 TB+ (signal buffers and VNFs).
+
+FOXCONN O-RU 1 — FOXCONN RPQN-7801E Type/function: 5G Radio Unit (O-RU): converts digital fronthaul ↔ analog RF (to the antenna). Notable connectivity: 10GbE (SFP) to the FALCON-RX GrandMaster Switch (fronthaul to the DU on T02). 1GbE (ETH0) for M-Plane/management/synchronization. RF to the 5G Antenna. Processing resources: Operating system: RTOS or embedded Linux optimized for DSP. CPU: Specialized SoCs (DSPs, FPGAs and/or ARM) for baseband/RF. Memory: Dedicated RAM for signal buffers and firmware (typical of the O-RU class).
+5G Antenna Type/function: RF antenna that transmits/receives 5G signals to UEs. Notable connectivity: Connected via RF to the FOXCONN O-RU 1; Air link with 5G devices (e.g., Galaxy S23 Ultra). Processing capabilities: Typically passive; in active antennas (AAU) there may be processing for beamforming, but here the main processing resides in the O-RU.
+Raspberry Pi Type/function: SBC for monitoring/automation/gateway or 5G test device (has 5G SIMCOM 8262E module). Notable connectivity: 1GbE (ETH0) for the FALCON-RX GrandMaster.
+
 </p>
 
 <p align="center">
-    <img src="img/sensor.png" height="300"/> 
+    <img src="img/detailed_topology.png" /> 
 </p>
-
-
-
-
 
 
 ## Main dependencies
@@ -267,6 +285,9 @@ onie_version=2019.05.00.04
 During the installation of Ubuntu Focal, the process did not complete successfully. A compatibility issue related to the disk and hardware occurred. Even after the Ubuntu image was installed and the verification (check) was completed, the operating system would not boot  only SONiC Broadcom was loaded. Consequently, SONiC was reinstalled using the image downloaded from www.edge-core.com, following a support ticket with the SONiC team.
 
 Image name: sonic-broadcom-enterprise-base.bin.
+
+
+
 
 Below is the Switch information for requesting the firmware.
 
