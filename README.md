@@ -1,6 +1,10 @@
 ## Programmable MID - Implementation of a programmable dataplane within the OpenRAN Midhaul for implementing routing protocols.
 
 
+<!--
+ https://github.com/luciorp/multi-lora
+-->
+
 
 <p align="justify">
 The objective of this work is to set up the programming environment and apply configurations on a Tofino-based switch to process network packets in an Open RAN topology, using protocols that enable network slicing and provide data-plane programmability, and to support the deployment of POLKA. The increasing complexity of 5G networks and future generations demands efficient solutions for traffic management among distributed network elements, particularly within the context
@@ -12,7 +16,7 @@ Software-Defined Networking (SDN) is a networking paradigm that decouples the ne
 <p align="center">
     <figure>
         <img src="img/sdn1.png" height="300"/> 
-        <figcaption>Figure 2 - Demonstrates the SDN vs Traditional Network.</figcaption>
+        <figcaption>Figure 1 - Demonstrates the SDN vs Traditional Network.</figcaption>
     </figure>
 </p>
 
@@ -339,37 +343,6 @@ onie_version=2019.05.00.04
 #### > Reference of the de procediment.
 
 
-BF_SDE install:
-
-🔗 https://github.com/eversonscherrer/ubuntu-onie.git
-https://twiki.cern.ch/twiki/bin/view/Main/Bfsde_installation
-
-
-Reference video for the installation of both methods.
-
-🔗 git clone https://github.com/eversonscherrer/ubuntu-onie.git
-🔗 https://www.youtube.com/watch?v=vNfMWjSmgfg 
-🔗 https://www.youtube.com/watch?v=oRn9Bb3AsVs
-🔗 https://www.youtube.com/watch?v=Zakdfj3U2yg
-
-https://wiki.geant.org/spaces/GP4L/pages/361365655/Home
-
-GitHub - wililupy/ubuntu-onie
-Contribute to wililupy/ubuntu-onie development by creating an account on GitHub.
-github.com
-https://github.com/wililupy/ubuntu-onie
-
-
-
-GitHub - mariusz-stordis/ubuntu-onie: Working with UEFI and add Onie boot option.
-Working with UEFI and add Onie boot option. Contribute to mariusz-stordis/ubuntu-onie development by creating an account on GitHub.
-github.com
-https://github.com/mariusz-stordis/ubuntu-onie
-
-
-
-
-
 
 
 
@@ -592,15 +565,69 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 
 <img src="doc/img/detailed_topology1.png" fullwith /> 
 
-
+ -->
 
 
 
 ## How to cite
 
 ```
-@article{
-
-
+@misc{cern_bfsde_installation,
+  title        = {BF SDE Installation},
+  howpublished = {CERN Twiki},
+  url          = {https://twiki.cern.ch/twiki/bin/view/Main/Bfsde_installation},
+  note         = {Documento online}
 }
-``` -->
+
+@misc{eversonscherrer_ubuntu_onie,
+  author       = {Scherrer, Everson},
+  title        = {ubuntu-onie},
+  howpublished = {GitHub},
+  url          = {https://github.com/eversonscherrer/ubuntu-onie},
+  note         = {Repositório de código}
+}
+
+@misc{wililupy_ubuntu_onie,
+  author       = {Wililupy},
+  title        = {ubuntu-onie},
+  howpublished = {GitHub},
+  url          = {https://github.com/wililupy/ubuntu-onie},
+  note         = {Repositório de código}
+}
+
+@misc{mariusz_stordis_ubuntu_onie,
+  author       = {Stordis, Mariusz},
+  title        = {ubuntu-onie: Working with UEFI and add Onie boot option},
+  howpublished = {GitHub},
+  url          = {https://github.com/mariusz-stordis/ubuntu-onie},
+  note         = {Repositório de código}
+}
+
+@misc{geant_gp4l_home,
+  title        = {GP4L (Home)},
+  howpublished = {GEANT Wiki},
+  url          = {https://wiki.geant.org/spaces/GP4L/pages/361365655/Home},
+  note         = {Página wiki}
+}
+
+@misc{youtube_vNfMWjSmgfg,
+  title        = {Instalação — Vídeo 1},
+  howpublished = {YouTube},
+  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/embed/1291" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
+  note         = {Vídeo online}
+}
+
+@misc{youtube_oRn9Bb3AsVs,
+  title        = {Instalação — Vídeo 2},
+  howpublished = {YouTube},
+  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/embed/1486" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
+  note         = {Vídeo online}
+}
+
+@misc{youtube_Zakdfj3U2yg,
+  title        = {Instalação — Vídeo 3},
+  howpublished = {YouTube},
+  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/embed/1681" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
+  note         = {Vídeo online}
+}
+```
