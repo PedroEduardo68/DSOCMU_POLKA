@@ -8,12 +8,13 @@ of OpenRAN. Thus, data-plane programmability delivers significant efficiency gai
 
 Software-Defined Networking (SDN) is a networking paradigm that decouples the network’s decision-making logic (the control plane) from the packet forwarding functions (the data plane). Instead of each switch/router independently running distributed control protocols and making local forwarding decisions, SDN centralizes the control logic in a controller (or a cluster of controllers), which programs the forwarding behavior of the data-plane devices through standardized APIs.
 
-</p>
-<p align="center">
-    <img src="img/sdn1.png" height="300"/> 
-</p>
-    
 
+<p align="center">
+    <figure>
+        <img src="img/sdn1.png" height="300"/> 
+        <figcaption>Figure 2 - Demonstrates the SDN vs Traditional Network.</figcaption>
+    </figure>
+</p>
 
 
 
@@ -36,7 +37,7 @@ The connectivity arrows and labels (1/10/40/100GbE), along with the presence of 
 <p align="center">
     <figure>
         <img src="img/top_100.png" height="600"  /> 
-        <figcaption>This is the figure description (caption).</figcaption>
+        <figcaption>Figure 2 - Demonstrates the final topology.</figcaption>
     </figure>
 </p>
 
