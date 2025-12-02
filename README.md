@@ -27,12 +27,9 @@ Software-Defined Networking (SDN) is a networking paradigm that decouples the ne
 <p align="justify">
 
 The image shows two locations interconnected by a high-capacity link labeled “MIDHAUL,” forming a typical topology for a disaggregated and virtualized OPEN RAN deployment:
-
-Left — “Datacenter - POP RJ - RNP”: a centralized environment, ideal for hosting virtualized functions such as the vCU and the management/orchestration plane. 
-
-Right — “Sala Rede Rio - CBPF - RNP”: a site closer to the edge, suitable for the vDU and for connectivity to the RUs (Radio Units), as well as a “GrandMaster” synchronization device. 
-
-The connectivity arrows and labels (1/10/40/100GbE), along with the presence of programmable (P4) switches, computing clouds (“Cloud 5/6”), and a “GrandMaster Switch,” indicate an architecture aligned with O-RAN principles: disaggregation (RU/DU/CU), virtualization (vDU/vCU), standards-based Ethernet transport with QoS, and precise time synchronization.
+ - Left — “Datacenter - POP RJ - RNP”: a centralized environment, ideal for hosting virtualized functions such as the vCU and the management/orchestration plane.
+ - Right — “Sala Rede Rio - CBPF - RNP”: a site closer to the edge, suitable for the vDU and for connectivity to the RUs (Radio Units), as well as a “GrandMaster” synchronization device.
+ - The connectivity arrows and labels (1/10/40/100GbE), along with the presence of programmable (P4) switches, computing clouds (“Cloud 5/6”), and a “GrandMaster Switch,” indicate an architecture aligned with O-RAN principles: disaggregation (RU/DU/CU), virtualization (vDU/vCU), standards-based Ethernet transport with QoS, and precise time synchronization.
 </p>
 
 <p align="center">
@@ -59,26 +56,6 @@ As shown in the figure below, we developed a hardware prototype for physically i
 
 ## Main dependencies
 
-### The minimum hardware requirement and software to run this experiment in bare metal (microcontroller) are:
-Hardware:
-- 4 Heltech Wireless Stick Lite (ESP32+SX1272) board
-- 4 SX1276 module
-- 4 USB cable - USB A / micro USB B
-- Computer running Debian Linux
-- ESP-IDF that essentially contains API (software libraries and source code) for ESP32 and scripts to operate the Toolchain
-
-Software:
-- ESP-IDF that essentially contains API (software libraries and source code) for ESP32 and scripts to operate the Toolchain
-
-### The minimum hardware requirement and software to run this experiment in simulation mode are:
-Hardware:
-- Computer with 32GB RAM running Debian Linux
-
-Software:
-- Python 3.6 and libs in requeriments.txt
-- gcc compiler an pthread lib
-
-
 ## Steps 
 
 <ol start="1">
@@ -87,18 +64,9 @@ Software:
     <li>Modify the switch's operating system.</li>
 </ol>
 
-
-
-
-
-
-
-
-
 ## Build and installation - Switch Barefoot Tofino Networks
 
 #### > Requirements
-
 
 <ul start="1">
     <li>Access to the serial console and management network.</li>
@@ -111,7 +79,7 @@ Software:
 #### > Method A: Installation via USB
 
 Prepare the USB flash drive
-   
+
 <ul>
     <li>Format to FAT32</li>
     <li>Copy the files below to the root of the USB drive</li>
@@ -184,53 +152,6 @@ onie-nos-install http://10.21.0.6/ubuntu-focal-amd64-mini-ONIE.bin
 
 
 
-
-#### > Error during explanation and the reason.
-
-During the installation of Ubuntu Focal, the process did not complete successfully. A compatibility issue related to the disk and hardware occurred. Even after the Ubuntu image was installed and the verification (check) was completed, the operating system would not boot — only SONiC was loaded. Consequently, SONiC was reinstalled using the image downloaded from www.edge-core.com, following a support ticket with the SONiC team.
-
-Image name: sonic-broadcom-enterprise-base.bin.
-
-
-Below is the Switch information for requesting the firmware.
-
-```bash
-Platform  : x86_64-accton_as9516_32d-r0
-Version   : 2019.05.00.04
-Build Date: 2019-07-24T13:52+0800
-fpga version 00/00/ 0 00:00:00bf_fpga probe ok
-ata1.00: failed to set xfermode (err_mask=0x40)
-Info: Mounting kernel filesystems... done.
-Info: Mounting ONIE-BOOT on /mnt/onie-boot ...
-ERROR: fsck corrected errors.
-Info: Mounting EFI System on /boot/efi ...
-Info: BIOS mode: UEFI
-Running Accton AS9516_32D
-```
-
-
-
-```bash
-ONIE:/ #  cat /etc/machine.conf
-onie_version=2019.05.00.04
-onie_vendor_id=259
-onie_build_machine=accton_as9516_32d
-onie_machine_rev=0
-onie_arch=x86_64
-onie_build_platform=x86_64-accton_as9516_32d-r0
-onie_config_version=1
-onie_build_date="2019-07-24T13:52+0800"
-onie_partition_type=gpt
-onie_kernel_version=4.9.95
-onie_firmware=auto
-onie_switch_asic=bfn
-onie_skip_ethmgmt_macs=no
-onie_grub_image_name=grubx64.efi
-onie_uefi_boot_loader=grubx64.efi
-onie_uefi_arch=x64
-onie_machine=accton_as9516_32d
-onie_platform=x86_64-accton_as9516_32d-r0
-```
 
 
 ### >> Install SONIC.
@@ -339,13 +260,64 @@ onie_version=2019.05.00.04
 
 
 
+## First steps Simulation
+
+#### > Error during explanation and the reason.
+
+During the installation of Ubuntu Focal, the process did not complete successfully. A compatibility issue related to the disk and hardware occurred. Even after the Ubuntu image was installed and the verification (check) was completed, the operating system would not boot  only SONiC Broadcom was loaded. Consequently, SONiC was reinstalled using the image downloaded from www.edge-core.com, following a support ticket with the SONiC team.
+
+Image name: sonic-broadcom-enterprise-base.bin.
+
+Below is the Switch information for requesting the firmware.
+
+```bash
+Platform  : x86_64-accton_as9516_32d-r0
+Version   : 2019.05.00.04
+Build Date: 2019-07-24T13:52+0800
+fpga version 00/00/ 0 00:00:00bf_fpga probe ok
+ata1.00: failed to set xfermode (err_mask=0x40)
+Info: Mounting kernel filesystems... done.
+Info: Mounting ONIE-BOOT on /mnt/onie-boot ...
+ERROR: fsck corrected errors.
+Info: Mounting EFI System on /boot/efi ...
+Info: BIOS mode: UEFI
+Running Accton AS9516_32D
+```
+
+
+
+```bash
+ONIE:/ #  cat /etc/machine.conf
+onie_version=2019.05.00.04
+onie_vendor_id=259
+onie_build_machine=accton_as9516_32d
+onie_machine_rev=0
+onie_arch=x86_64
+onie_build_platform=x86_64-accton_as9516_32d-r0
+onie_config_version=1
+onie_build_date="2019-07-24T13:52+0800"
+onie_partition_type=gpt
+onie_kernel_version=4.9.95
+onie_firmware=auto
+onie_switch_asic=bfn
+onie_skip_ethmgmt_macs=no
+onie_grub_image_name=grubx64.efi
+onie_uefi_boot_loader=grubx64.efi
+onie_uefi_arch=x64
+onie_machine=accton_as9516_32d
+onie_platform=x86_64-accton_as9516_32d-r0
+```
 
 
 
 
-olha para abaixo 
 
-<!-- 
+
+
+
+
+<!--
+
 
 
 1 - You need to get the following packages to compile prototype bare-metal firmware using ESP-IDF. 
