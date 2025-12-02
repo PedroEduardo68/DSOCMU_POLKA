@@ -267,12 +267,25 @@ sudo ztp disable
 yes
 ```
 
-[Install process](https://github.com/PedroEduardo68/DSOCMU_PMID/blob/main/Install-processo.md)
+
+Below is the complete response process for the Sonic installation command.
+
+[Install process](https://github.com/PedroEduardo68/DSOCMU_PMID/blob/main/Install-process.md)
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+### >> Install SONIC witch container of the program p4.
 
 
 
@@ -282,8 +295,6 @@ yes
 ```bash
 apt-get install nano htop mtr telnet
 ```
-
-
 
 
 
@@ -398,8 +409,6 @@ During the installation of Ubuntu Focal, the process did not complete successful
 Image name: sonic-broadcom-enterprise-base.bin.
 
 
-
-
 Below is the Switch information for requesting the firmware.
 
 ```bash
@@ -441,232 +450,58 @@ onie_platform=x86_64-accton_as9516_32d-r0
 ```
 
 
-
-
-
-
-
-
-
-<!--
-
-
-
-1 - You need to get the following packages to compile prototype bare-metal firmware using ESP-IDF. 
-
-```
-sudo apt-get install git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
-```
-
-2 - You need the software libraries provided by Espressif in the ESP-IDF repository to build applications for the prototype.  To get ESP-IDF, navigate to your installation directory and clone the repository with git clone, following instructions.
-
-Open Terminal and run the following commands:
-```
-mkdir -p ~/esp
-cd ~/esp
-git clone --recursive https://github.com/espressif/esp-idf.git
-```
-3 - You also need to install the tools used by ESP-IDF for projects supporting ESP32, such as the compiler, debugger, Python packages, etc.
-```
-cd ~/esp/esp-idf
-./install.sh esp32
-```
-
-4 - The installed tools are not added to the PATH environment variable yet. You must set some environment variables to make the tools usable from the command line. ESP-IDF provides a script that does that.
-
-In the terminal where you are going to use ESP-IDF, run:
-```
-. $HOME/esp/esp-idf/export.sh
-```
-5 - Now, you are ready to prepare your application for the prototype. You can start cloning the project.
-```
-  git clone https://github.com/luciorp/multi-lora.git
-  
-  cd multi-lora
-```
-6 - Build the project by running:
-
-```
-idf.py build
-```
-This command compiles the application and all ESP-IDF components and generates the bootloader, partition table, and application binaries.
-```
-$ idf.py build
-Running cmake in directory /path/to/multi-lora/build
-Executing "cmake -G Ninja --warn-uninitialized /path/to/multi-lora"...
-Warn about uninitialized values.
--- Found Git: /usr/bin/git (found version "2.17.0")
--- Building empty aws_iot component due to configuration
--- Component names: ...
--- Component paths: ...
-
-... (more lines of build system output)
-
-[527/527] Generating multi-lora.bin
-esptool.py v2.3.1
-
-Project build complete. To flash, run this command:
-../../../components/esptool_py/esptool/esptool.py -p (PORT) -b 921600 write_flash --flash_mode dio --flash_size detect --flash_freq 40m 0x10000 build/multi-lora.bin  build 0x1000 build/bootloader/bootloader.bin 0x8000 build/partition_table/partition-table.bin
-or run 'idf.py -p PORT flash'
-```
-
-6 - Flash the binaries that you just built (bootloader.bin, partition-table.bin, and multi-lora.bin) onto your prototype board by running:
-
-```
-idf.py -p PORT [-b BAUD] flash
-```
-Replace PORT with your ESP32 board’s serial port name.
-
-### How to test
-
-You will see the output log similar when flashing firmware in the prototype:
-```
-esptool.py --chip esp32 -p /dev/ttyUSB0 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x8000 partition_table/partition-table.bin 0x1000 bootloader/bootloader.bin 0x10000 hello_world.bin
-esptool.py v3.0-dev
-Serial port /dev/ttyUSB0
-Connecting........_
-Chip is ESP32D0WDQ6 (revision 0)
-Features: WiFi, BT, Dual Core, Coding Scheme None
-Crystal is 40MHz
-MAC: 24:0a:c4:15:b7:18
-Uploading stub...
-Running stub...
-Stub running...
-Changing baud rate to 460800
-Changed.
-Configuring flash size...
-Compressed 3072 bytes to 103...
-Writing at 0x00008000... (100 %)
-Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.0 seconds (effective 5962.8 kbit/s)...
-Hash of data verified.
-Compressed 26096 bytes to 15408...
-Writing at 0x00001000... (100 %)
-Wrote 26096 bytes (15408 compressed) at 0x00001000 in 0.4 seconds (effective 546.7 kbit/s)...
-Hash of data verified.
-Compressed 147104 bytes to 77364...
-Writing at 0x00010000... (20 %)
-Writing at 0x00014000... (40 %)
-Writing at 0x00018000... (60 %)
-Writing at 0x0001c000... (80 %)
-Writing at 0x00020000... (100 %)
-Wrote 147104 bytes (77364 compressed) at 0x00010000 in 1.9 seconds (effective 615.5 kbit/s)...
-Hash of data verified.
-
-Leaving...
-Hard resetting via RTS pin...
-Done
-```
-<p align="justify">
-To check if Multi-LoRa firmware is indeed running, type idf.py -p PORT monitor (replace PORT with your serial port name).
-The firmware's default configuration generates random traffic to all nodes in the routing table. 
-</p>
-<p align="center">
-    <img src="img/learning.png" height="150"/> 
-</p>
-
-
-
-## First steps Simulation
-
-You need to install some software packages on Debian Linux to use the simulator, such as make, gcc, and python 3 with their libraries.
-
-### Build and installation
-
-Install the gcc compiler and make to compile firmware on x86_64 architecture and make simulation possible.
-```
-sudo apt-get -y install make build-essential
-```
-Install the python interpreter to run the mesh network simulator.
-```
-sudo apt install -y python3 python3-pip libssl-dev libffi-dev python3-dev python3-venv
-```
-Now, you are ready to prepare your emulation/simulation. You can start the clone of the project.
-```
-  git clone https://github.com/luciorp/multi-lora.git
-  
-  cd multi-lora/simulator
-```
-Build the firmware to emulate on x86_64 architecture by running make all inside the folder multi-lora/simulator/mac_sim
-
-Back to the multi-lora/simulator/ folder and install the necessary libraries to run the python simulator
-```
-pip3 install -r requirements.txt
-```
-### How to test
-
-You need to configure the topology.csv file with the distribution of nodes in space to run the python simulator.
-
-```
-NodeId,Xcoord,Ycoord,Address
-nodeA,   0,     0,    10
-nodeB,   0,     4,    20
-nodeC,   0,     8,    30
-nodeD,   4,     0,    40
-nodeE,   4,     4,    50
-nodeF,   4,     8,    60
-nodeG,   8,     0,    70
-nodeH,   8,     4,    80
-nodeI,   8,     8,    90
-```
-
-Configure the packets.csv file to indicate the packets to be sent with the source node address, destination node address, payload (hexadecimal), 
-and the time in ms.
-
-```
-pktID, srcAddre, destAddr, startTime, dataPayload
-  1,      10,       90,        10,        AABBCCDDEEFF112233445566778899
-  2,      10,       80,        3000,      AABBCCDDEEFF112233
-  3,      10,       50,        6000,      AABBCCDDEEFF112233445566778899ABCDEFABCDEF
-
-```
-<p align="justify">
-
-</p>
-Start simulation.
-
-```
-python3 simulator.py
-```
-
-The results are listed in the results.csv file at the end of the simulation process.
-
-```
-pktID, srcAddre, destAddr, totalTime, timeout, dataError
-  1,      10,       90,        63,       0,      0
-  2,      10,       80,        42,       0,      0
-  3,      10,       50,        87,       0,      0
-
-```
-
-## Main results
+#### > Time for installation and uninstallation.
 
 <p align="justify">
 
-</p>
-
-<p align="justify">
-
-
-<p align="center">
-    <img src="img/testbed.png" height="300"/> 
-</p>
-    
-<p align="justify">
+Across 6 runs, Install was on average 1 min 02 s faster than Uninstall (00:04:23 vs 00:05:25), about a 19.2% improvement. Variability was low to moderate (SD ≈ 19.8 s for Uninstall and 18.8 s for Install), indicating consistency across runs.
 
 </p>
 
-<p align="center">
-    <img src="img/Simulation.png" height="300"/> 
-</p>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th scope="col">Run</th>
+      <th scope="col">Unistall</th>
+      <th scope="col">Install</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>00:05:06</td>
+      <td>00:04:08</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>00:05:40</td>
+      <td>00:04:45</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>00:05:37</td>
+      <td>00:04:01</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>00:05:16</td>
+      <td>00:04:20</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>00:05:02</td>
+      <td>00:04:46</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>00:05:50</td>
+      <td>00:04:17</td>
+    </tr>
+  </tbody>
+</table>
 
 
 
-
-
-
-<img src="doc/img/detailed_topology1.png" fullwith /> 
-
- -->
 
 
 
