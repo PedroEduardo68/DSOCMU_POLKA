@@ -571,14 +571,17 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 
 ## How to cite
 
-```
+```bash
 @misc{cern_bfsde_installation,
   title        = {BF SDE Installation},
   howpublished = {CERN Twiki},
   url          = {https://twiki.cern.ch/twiki/bin/view/Main/Bfsde_installation},
   note         = {Documento online}
 }
+```
 
+
+```bash
 @misc{eversonscherrer_ubuntu_onie,
   author       = {Scherrer, Everson},
   title        = {ubuntu-onie},
@@ -586,7 +589,9 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
   url          = {https://github.com/eversonscherrer/ubuntu-onie},
   note         = {Repositório de código}
 }
+```
 
+```bash
 @misc{wililupy_ubuntu_onie,
   author       = {Wililupy},
   title        = {ubuntu-onie},
@@ -594,7 +599,9 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
   url          = {https://github.com/wililupy/ubuntu-onie},
   note         = {Repositório de código}
 }
+```
 
+```bash
 @misc{mariusz_stordis_ubuntu_onie,
   author       = {Stordis, Mariusz},
   title        = {ubuntu-onie: Working with UEFI and add Onie boot option},
@@ -602,28 +609,33 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
   url          = {https://github.com/mariusz-stordis/ubuntu-onie},
   note         = {Repositório de código}
 }
+```
 
+```bash
 @misc{geant_gp4l_home,
   title        = {GP4L (Home)},
   howpublished = {GEANT Wiki},
   url          = {https://wiki.geant.org/spaces/GP4L/pages/361365655/Home},
   note         = {Página wiki}
 }
-
+```
+```bash
 @misc{youtube_vNfMWjSmgfg,
   title        = {Instalação — Vídeo 1},
   howpublished = {YouTube},
   url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/embed/1291" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
   note         = {Vídeo online}
 }
-
+```
+```bash
 @misc{youtube_oRn9Bb3AsVs,
   title        = {Instalação — Vídeo 2},
   howpublished = {YouTube},
   url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/embed/1486" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
   note         = {Vídeo online}
 }
-
+```
+```bash
 @misc{youtube_Zakdfj3U2yg,
   title        = {Instalação — Vídeo 3},
   howpublished = {YouTube},
