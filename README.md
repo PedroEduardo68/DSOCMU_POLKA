@@ -70,7 +70,10 @@ Raspberry Pi Type/function: SBC for monitoring/automation/gateway or 5G test dev
 </p>
 
 <p align="center">
-    <img src="img/detailed_topology.png" /> 
+    <figure>
+        <img src="img/detailed_topology.png"/> 
+        <figcaption>Figure 3 - Demonstrates the final topology.</figcaption>
+    </figure>
 </p>
 
 
@@ -196,6 +199,17 @@ Files:
 ubuntu-focal-amd64-mini-ONIE.bin
 ubuntu-preseed.cfg
 ```
+
+<p align="center">
+    <figure>
+        <img src="img/server_http.png"/> 
+        <figcaption>Figure 4 - HTTP Server.</figcaption>
+    </figure>
+</p>
+
+
+
+
 Remove the current operating system.
 <ul>
     <li>Reboot Switch → ONIE Menu → ONIE: Uninstall OS → Reboot</li>
