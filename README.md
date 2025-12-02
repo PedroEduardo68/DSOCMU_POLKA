@@ -288,30 +288,23 @@ Below is the complete response process for the Sonic installation command.
 ### >> Install SONIC witch container of the program p4.
 
 
+A container was created with the installation process on Ubuntu 22.04 for possible deployment on the Tofino switch, based on container technology.
 
 
+[Dockerfile](https://github.com/PedroEduardo68/DSOCMU_PMID/blob/main/SDEP4container/Dockerfile)
+
+Inside the container, you'll already find the p4 compilation files and several packages used for networking, ready for the p4 installer to run.
 
 
 ```bash
-apt-get install nano htop mtr telnet
-```
+docker build -t sdep4 .
+docker run -it sdep4 /bin/bash
+``` 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[Image DockerHUB Public](https://hub.docker.com/repository/docker/pedroeduardo68/sdep4/general)
 
 Then, stop all containers to start a new container with the compiler.
+
 
 ```bash
 docker ps
@@ -320,14 +313,7 @@ docker stop [ID CONTAINER]
 docker system prune -af
 ``` 
 
-
-```bash
-docker build -t sdep4 .
-docker run -it sdep4 /bin/bash
-
-``` 
-
-
+Test to see if the container can navigate. Because on the Tofino switch they have control over navigation, there's a possibility that the internet connection for the Docker containers isn't working.
 
 ```bash
 docker run --rm alpine ping -c 3 8.8.8.8
@@ -335,67 +321,62 @@ docker run --rm alpine wget -qO- http://google.com
 ``` 
 
 
+Inside the switch, the command will run to create the container, and also access it and start the process of installing the P4 packages.
 
-
-
-
-
-
-
-
-
-Switch information from ONIE after uploading SONIC.
 
 ```bash
-cat machine.conf
-onie_arch=x86_64
-onie_bin=
-onie_boot_fs_type=ext4
-onie_boot_gfdisk_type=0x3000
-onie_boot_gpt_uuid= #####
-onie_boot_label=ONIE-BOOT
-onie_boot_mnt=/mnt/onie-boot
-onie_boot_reason=install
-onie_build_date=2019-07-24T13:52+0800
-onie_build_machine=accton_as9516_32d
-onie_build_platform=x86_64-accton_as9516_32d-r0
-onie_cli_static_parms=
-onie_cli_static_url=http://10.21.0.6/sonic-broadcom-enterprise-base.bin
-onie_config_dir=/mnt/onie-boot/onie/config
-onie_config_version=1
-onie_default_filename=onie-installer-x86_64-accton_as9516_32d-r0
-onie_default_filenames=onie-installer-x86_64-accton_as9516_32d-r0
-onie_dev=/dev/sda2
-onie_exec_url=http://10.21.0.6/sonic-broadcom-enterprise-base.bin
-onie_firmware=auto
-onie_grub_image_name=grubx64.efi
-onie_iana_enterprise=42623
-onie_image_suffixes=.bin
-onie_image_type_nos=nos
-onie_image_type_update=update
-onie_initrd_tmp=/
-onie_installer=/var/tmp/installer
-onie_kernel_version=4.9.95
-onie_machine=accton_as9516_32d
-onie_machine_rev=0
-onie_operation=os-install
-onie_partition_type=gpt
-onie_platform=x86_64-accton_as9516_32d-r0
-onie_root_dir=/mnt/onie-boot/onie
-onie_server_name=onie-server
-onie_skip_ethmgmt_macs=no
-onie_switch_asic=bfn
-onie_uefi_arch=x64
-onie_uefi_boot_loader=grubx64.efi
-onie_update_attempts_dir=/mnt/onie-boot/onie/update/attempts
-onie_update_dir=/mnt/onie-boot/onie/update
-onie_update_log=/mnt/onie-boot/onie/update/update.log
-onie_update_pending_dir=/mnt/onie-boot/onie/update/pending
-onie_update_results_dir=/mnt/onie-boot/onie/update/results
-onie_updater_cookie=ONIE-UPDATER-COOKIE
-onie_vendor_id=259
-onie_version=2019.05.00.04
+docker run -it pedroeduardo68/sdep4 /bin/bash
+``` 
+
+
+After you download p4studio from intel.
+
+```bash
+dsa213eds:~$ sudo tar -xzvf bf-sde-9.13.1.tgz
+dsa213eds:~$ cd  bf-sde-9.13.1
+dsa213eds:~$ sudo export SDE=/sdep4/bf-sde-9.13.1
+dsa213eds:~$ sudo export SDE_INSTALL=$SDE/install
+dsa213eds:~$ sudo export PATH=$SDE_INSTALL/bin:$PATH
+dsa213eds:~$ cd p4studio
+dsa213eds:~$ sudo ./p4studio/p4studio profile apply profile-tf1.yaml
+dsa213eds:~$ sudo ./p4studio dependencies install
 ```
+
+Now the bf-sde is installed you need to install your correct bsp that matches your platform.
+
+Initialize Platform bsp.
+
+
+```bash
+ubuntu:~$ tar -xzvf bf-platforms-ufispace-bsp-9.13.1.tgz
+ubuntu:~$ cd bf-platforms-ufispace-bsp-9.13.1
+ubuntu:~$ cd bsp
+ubuntu:~$ make
+ubuntu:~$ make install
+ubuntu:~$ cp utils/*.sh /usr/sbin/
+ubuntu:~$ i2c_utils_std.sh i2c_init
+Run simple p4 example
+ubuntu:~$ sudo source prepare_sde.sh
+ubuntu:~$ sudo $SDE/run_switchd.sh -p switch 
+You will see this screen
+
+BF_SWITCHD DEBUG - bf_switchd: thrift initialized for agent : 0
+BF_SWITCHD DEBUG - bf_switchd: spawning cli server thread
+BF_SWITCHD DEBUG - bf_switchd: spawning driver shell
+BF_SWITCHD DEBUG - bf_switchd: server started - listening on port 9999
+bfruntime gRPC server started on 0.0.0.0:50052
+
+        ********************************************
+        *      WARNING: Authorised Access Only     *
+        ********************************************
+
+
+bfshell>
+```
+
+
+
+
 
 
 
@@ -447,6 +428,60 @@ onie_uefi_boot_loader=grubx64.efi
 onie_uefi_arch=x64
 onie_machine=accton_as9516_32d
 onie_platform=x86_64-accton_as9516_32d-r0
+```
+
+Switch information from ONIE after uploading SONIC.
+
+
+```bash
+cat machine.conf
+onie_arch=x86_64
+onie_bin=
+onie_boot_fs_type=ext4
+onie_boot_gfdisk_type=0x3000
+onie_boot_gpt_uuid= #####
+onie_boot_label=ONIE-BOOT
+onie_boot_mnt=/mnt/onie-boot
+onie_boot_reason=install
+onie_build_date=2019-07-24T13:52+0800
+onie_build_machine=accton_as9516_32d
+onie_build_platform=x86_64-accton_as9516_32d-r0
+onie_cli_static_parms=
+onie_cli_static_url=http://10.21.0.6/sonic-broadcom-enterprise-base.bin
+onie_config_dir=/mnt/onie-boot/onie/config
+onie_config_version=1
+onie_default_filename=onie-installer-x86_64-accton_as9516_32d-r0
+onie_default_filenames=onie-installer-x86_64-accton_as9516_32d-r0
+onie_dev=/dev/sda2
+onie_exec_url=http://10.21.0.6/sonic-broadcom-enterprise-base.bin
+onie_firmware=auto
+onie_grub_image_name=grubx64.efi
+onie_iana_enterprise=42623
+onie_image_suffixes=.bin
+onie_image_type_nos=nos
+onie_image_type_update=update
+onie_initrd_tmp=/
+onie_installer=/var/tmp/installer
+onie_kernel_version=4.9.95
+onie_machine=accton_as9516_32d
+onie_machine_rev=0
+onie_operation=os-install
+onie_partition_type=gpt
+onie_platform=x86_64-accton_as9516_32d-r0
+onie_root_dir=/mnt/onie-boot/onie
+onie_server_name=onie-server
+onie_skip_ethmgmt_macs=no
+onie_switch_asic=bfn
+onie_uefi_arch=x64
+onie_uefi_boot_loader=grubx64.efi
+onie_update_attempts_dir=/mnt/onie-boot/onie/update/attempts
+onie_update_dir=/mnt/onie-boot/onie/update
+onie_update_log=/mnt/onie-boot/onie/update/update.log
+onie_update_pending_dir=/mnt/onie-boot/onie/update/pending
+onie_update_results_dir=/mnt/onie-boot/onie/update/results
+onie_updater_cookie=ONIE-UPDATER-COOKIE
+onie_vendor_id=259
+onie_version=2019.05.00.04
 ```
 
 
