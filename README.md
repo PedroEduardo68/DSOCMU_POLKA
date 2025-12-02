@@ -25,10 +25,6 @@ Software-Defined Networking (SDN) is a networking paradigm that decouples the ne
 ## Architecture
 
 <p align="justify">
-The project proposes the implementation of the POLKA protocol specifically adapted for mobile and ubiquitous computing environments, utilizing programmable switches as the technological foundation. This software represents an advanced solution for the growing challenges of connectivity and routing in heterogeneous networks, where mobile devices constantly transition between different access points and network infrastructures.
-</p>
-
-
 
 The image shows two locations interconnected by a high-capacity link labeled “MIDHAUL,” forming a typical topology for a disaggregated and virtualized OPEN RAN deployment:
 
@@ -37,6 +33,7 @@ Left — “Datacenter - POP RJ - RNP”: a centralized environment, ideal for h
 Right — “Sala Rede Rio - CBPF - RNP”: a site closer to the edge, suitable for the vDU and for connectivity to the RUs (Radio Units), as well as a “GrandMaster” synchronization device. 
 
 The connectivity arrows and labels (1/10/40/100GbE), along with the presence of programmable (P4) switches, computing clouds (“Cloud 5/6”), and a “GrandMaster Switch,” indicate an architecture aligned with O-RAN principles: disaggregation (RU/DU/CU), virtualization (vDU/vCU), standards-based Ethernet transport with QoS, and precise time synchronization.
+</p>
 
 <p align="center">
     <figure>
@@ -340,7 +337,7 @@ onie_version=2019.05.00.04
 ```
 
 
-#### > Reference of the de procediment.
+
 
 
 
@@ -569,7 +566,7 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 
 
 
-## How to cite
+## How to cite //  Reference of the de procediment
 
 ```bash
 @misc{cern_bfsde_installation,
@@ -613,7 +610,7 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 
 ```bash
 @misc{geant_gp4l_home,
-  title        = {GP4L (Home)},
+  title        = {GP4L Home},
   howpublished = {GEANT Wiki},
   url          = {https://wiki.geant.org/spaces/GP4L/pages/361365655/Home},
   note         = {Página wiki}
@@ -623,7 +620,7 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 @misc{youtube_vNfMWjSmgfg,
   title        = {Instalação — Vídeo 1},
   howpublished = {YouTube},
-  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/embed/1291" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
+  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/watch?v=vNfMWjSmgfg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
   note         = {Vídeo online}
 }
 ```
@@ -631,7 +628,7 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 @misc{youtube_oRn9Bb3AsVs,
   title        = {Instalação — Vídeo 2},
   howpublished = {YouTube},
-  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/embed/1486" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
+  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/watch?v=oRn9Bb3AsVs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
   note         = {Vídeo online}
 }
 ```
@@ -639,7 +636,7 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 @misc{youtube_Zakdfj3U2yg,
   title        = {Instalação — Vídeo 3},
   howpublished = {YouTube},
-  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/embed/1681" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
+  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src=" https://www.youtube.com/watch?v=Zakdfj3U2yg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
   note         = {Vídeo online}
 }
 ```
