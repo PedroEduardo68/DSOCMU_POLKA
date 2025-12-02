@@ -1,15 +1,21 @@
-## MID-Polka Implementation of Polynomial Key-based Architecture for Source Routing in the OpenRAN Midhaul structure
+## Programmable MID - Implementation of a programmable dataplane within the OpenRAN Midhaul for implementing routing protocols.
+
+
 
 <p align="justify">
-POLKA - Polynomial Key-based Architecture for Source Routing
-</p>
+The objective of this work is to set up the programming environment and apply configurations on a Tofino-based switch to process network packets in an Open RAN topology, using protocols that enable network slicing and provide data-plane programmability, and to support the deployment of POLKA. The increasing complexity of 5G networks and future generations demands efficient solutions for traffic management among distributed network elements, particularly within the context
+of OpenRAN. Thus, data-plane programmability delivers significant efficiency gains in packet header processing and in routing protocols, enabling more intelligent traffic management across network slices.
 
-<p align="justify">
-This work proposes the use of an innovative architecture based on polynomial keys for stateless source routingover the midhaul segment of Radio Access Networks (RAN).
-The increasing complexity of 5G networks and future generations demands efficient solutions for traffic management among distributed network elements, particularly within the context
-of OpenRAN. The proposed architecture employs polynomial functions as an encoding mechanism to generate unique keys that encapsulate routing information directly within packet headers,
-thereby eliminating the need for state tables in intermediate nodes. The system leverages polynomial interpolation algorithms to determine paths between Distributed Units (DUs) and Centralized Units (CUs).
+Software-Defined Networking (SDN) is a networking paradigm that decouples the network’s decision-making logic (the control plane) from the packet forwarding functions (the data plane). Instead of each switch/router independently running distributed control protocols and making local forwarding decisions, SDN centralizes the control logic in a controller (or a cluster of controllers), which programs the forwarding behavior of the data-plane devices through standardized APIs.
+
 </p>
+<p align="center">
+    <img src="img/sdn1.png" height="300"/> 
+</p>
+    
+
+
+
 
 ## Architecture
 
@@ -17,8 +23,21 @@ thereby eliminating the need for state tables in intermediate nodes. The system 
 The project proposes the implementation of the POLKA protocol specifically adapted for mobile and ubiquitous computing environments, utilizing programmable switches as the technological foundation. This software represents an advanced solution for the growing challenges of connectivity and routing in heterogeneous networks, where mobile devices constantly transition between different access points and network infrastructures.
 </p>
 
+
+
+The image shows two locations interconnected by a high-capacity link labeled “MIDHAUL,” forming a typical topology for a disaggregated and virtualized OPEN RAN deployment:
+
+Left — “Datacenter - POP RJ - RNP”: a centralized environment, ideal for hosting virtualized functions such as the vCU and the management/orchestration plane. 
+
+Right — “Sala Rede Rio - CBPF - RNP”: a site closer to the edge, suitable for the vDU and for connectivity to the RUs (Radio Units), as well as a “GrandMaster” synchronization device. 
+
+The connectivity arrows and labels (1/10/40/100GbE), along with the presence of programmable (P4) switches, computing clouds (“Cloud 5/6”), and a “GrandMaster Switch,” indicate an architecture aligned with O-RAN principles: disaggregation (RU/DU/CU), virtualization (vDU/vCU), standards-based Ethernet transport with QoS, and precise time synchronization.
+
 <p align="center">
-    <img src="img/arch.png" height="600"/> 
+    <figure>
+        <img src="img/top_100.png" height="600"  /> 
+        <figcaption>This is the figure description (caption).</figcaption>
+    </figure>
 </p>
 
 ## Prototype
