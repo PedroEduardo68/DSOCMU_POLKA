@@ -228,16 +228,16 @@ Enter ONIE Rescue mode (if necessary)
 onie-stop
 ```
 
-Configure the Network Manually
+Configure the Network Manually:
 
 ```bash
 ifconfig eth0 10.x.x.x netmask 255.255.255.0
 ip route add default via 10.x.x.254
 ```
    
-Command InstaErro durante a explicação e o motivoll Ubuntu
+Command to install Ubuntu:
 
-```
+```bash
 onie-nos-install http://10.21.0.6/ubuntu-focal-amd64-mini-ONIE.bin
 ```
 
@@ -245,7 +245,7 @@ onie-nos-install http://10.21.0.6/ubuntu-focal-amd64-mini-ONIE.bin
 
 ### >> Install SONIC.
 
-basicamnete precisa apenas fazer o ddowanload por HTTP 
+Basically, you just need to download it via HTTP.
 
 ```bash
 onie-nos-install http://10.21.0.6/sonic-broadcom-enterprise-base.bin
@@ -258,7 +258,6 @@ sonic login: admin
 Password: YourPaSsWoRd
 ```
 
-
 For the message "Zero Touch Provisioning discovery in progress. Please disable ZTP or logout." uses the command: 
 
 Too, install apps for network diagnostic.
@@ -266,8 +265,40 @@ Too, install apps for network diagnostic.
 ```bash
 sudo ztp disable
 yes
+```
+
+[Install process](https://github.com/PedroEduardo68/DSOCMU_PMID/blob/main/Install-processo.md)
+
+
+
+
+
+
+
+
+
+
+
+```bash
 apt-get install nano htop mtr telnet
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Then, stop all containers to start a new container with the compiler.
 

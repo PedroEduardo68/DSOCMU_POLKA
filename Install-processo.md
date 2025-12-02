@@ -1,3 +1,6 @@
+
+
+```bash
 ONIE:/ # onie-nos-install http://10.21.0.6/sonic-broadcom-enterprise-base.bin
 discover: installer mode detected.
 Stopping: discover... done.
@@ -280,3 +283,5 @@ Archive:  fs.zip
   inflating: installer-migration-hooks/00-cert-migrate
   inflating: sonic_version.yml
   inflating: db_migrator.py
+  
+```
