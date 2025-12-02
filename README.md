@@ -89,7 +89,7 @@ Raspberry Pi Type/function: SBC for monitoring/automation/gateway or 5G test dev
 <ul start="1">
     <li>Access to the serial console and management network.</li>
     <li>Ubuntu OS image compatible with the hardware (.bin file).</li>
-    <li>Intel Tofino in DataPlan of the switch./li>
+    <li>Intel Tofino in DataPlan of the switch.</li>
 </ul>
 
 ### >> Install Ubuntu Focal.
