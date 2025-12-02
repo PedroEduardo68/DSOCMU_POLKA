@@ -59,10 +59,12 @@ Switch P4-2 (Tofino 1) and Switch P4-1 (Tofino 1) — EdgeCore WEdge100bF-32QS-O
 FALCON-RX GrandMaster Switch Type/function: Site access/aggregation switch and likely GrandMaster Clock (precise synchronization for 5G). Concentrates the 10GbE link coming from the data center, connects DU/CU, O-RU, and test devices. Notable connectivity: 10GbE from the ToR Management Switch (Datacenter RJ). 10GbE for O-RAN CLOUD 5 — T02 (DU/CU). 1GbE for FOXCONN O-RU 1, Raspberry Pi, and Laptop (UE Link). Processing capabilities: Operating system: Manufacturer's proprietary OS (carrier/telecom class). CPU: Embedded multi-core processor (ARM Cortex-A or MIPS) for control/timing. Memory: Typically 4 GB to 16 GB.
 
 FIBLOLAN-FALCON RX Type/function: Optical infrastructure/fiber distribution equipment associated with the GrandMaster Switch (supports fiber management and interconnection). Notable connectivity: Management interfaces (MGMT) and optical ports/modules (not detailed). Processing capabilities: Operating system: Embedded RTOS or Linux. CPU: Low-power ARM Cortex-M/A. Memory: Approximately 256 MB to 2 GB.
+
 O-RAN CLOUD 5 — T02 (DU/CU) — SuperMicro SYS-220U-MTNR Type/function: Server hosting DU (real-time baseband) and CU (control plane), core of the 5G O-RAN base station. Notable connectivity: 10GbE (SFP+, VLAN 161) for the FALCON-RX GrandMaster Switch. 1GbE built-in for management via FALCON-RX. Processing resources: Operating system: Real-time optimized Linux (PREEMPT_RT kernel) or RT-tuned hypervisor. CPU: 2× Intel Xeon Scalable (critical for DU processing and CU control). Memory: typically 128 GB to 1 TB+ (signal buffers and VNFs).
 
-FOXCONN O-RU 1 — FOXCONN RPQN-7801E Type/function: 5G Radio Unit (O-RU): converts digital fronthaul ↔ analog RF (to the antenna). Notable connectivity: 10GbE (SFP) to the FALCON-RX GrandMaster Switch (fronthaul to the DU on T02). 1GbE (ETH0) for M-Plane/management/synchronization. RF to the 5G Antenna. Processing resources: Operating system: RTOS or embedded Linux optimized for DSP. CPU: Specialized SoCs (DSPs, FPGAs and/or ARM) for baseband/RF. Memory: Dedicated RAM for signal buffers and firmware (typical of the O-RU class).
-5G Antenna Type/function: RF antenna that transmits/receives 5G signals to UEs. Notable connectivity: Connected via RF to the FOXCONN O-RU 1; Air link with 5G devices (e.g., Galaxy S23 Ultra). Processing capabilities: Typically passive; in active antennas (AAU) there may be processing for beamforming, but here the main processing resides in the O-RU.
+FOXCONN O-RU 1 — FOXCONN RPQN-7801E Type/function: 5G Radio Unit (O-RU): converts digital fronthaul ↔ analog RF (to the antenna). Notable connectivity: 10GbE (SFP) to the FALCON-RX GrandMaster Switch (fronthaul to the DU on T02). 1GbE (ETH0) for M-Plane/management/synchronization. RF to the 5G Antenna. Processing resources: Operating system: RTOS or embedded Linux optimized for DSP. CPU: Specialized SoCs (DSPs, FPGAs and/or ARM) for baseband/RF. Memory: Dedicated RAM for signal buffers and firmware (typical of the O-RU class).5G Antenna Type/function: RF antenna that transmits/receives 5G signals to UEs. Notable connectivity: 
+
+Connected via RF to the FOXCONN O-RU 1; Air link with 5G devices (e.g., Galaxy S23 Ultra). Processing capabilities: Typically passive; in active antennas (AAU) there may be processing for beamforming, but here the main processing resides in the O-RU.
 Raspberry Pi Type/function: SBC for monitoring/automation/gateway or 5G test device (has 5G SIMCOM 8262E module). Notable connectivity: 1GbE (ETH0) for the FALCON-RX GrandMaster.
 
 </p>
@@ -74,6 +76,8 @@ Raspberry Pi Type/function: SBC for monitoring/automation/gateway or 5G test dev
 
 ## Main dependencies
 
+## Build and installation - Switch Barefoot Tofino Networks
+
 ## Steps 
 
 <ol start="1">
@@ -82,17 +86,72 @@ Raspberry Pi Type/function: SBC for monitoring/automation/gateway or 5G test dev
     <li>Modify the switch's operating system.</li>
 </ol>
 
-## Build and installation - Switch Barefoot Tofino Networks
+
+
+
+
+
 
 #### > Requirements
 
 <ul start="1">
     <li>Access to the serial console and management network.</li>
     <li>Ubuntu OS image compatible with the hardware (.bin file).</li>
-    <li>Intel Tofino in DataPlan of the switch.</li>
+    <li>Intel Tofino in DataPlane of the switch.</li>
 </ul>
 
 ### >> Install Ubuntu Focal.
+
+#### >> Building the Ubuntu ONIE installer
+
+Before building the installer make sure you have wget and xorriso installed on your system. On a Ubuntu based system the following is sufficient:
+
+```bash
+build-host:~$ sudo apt update
+build-host:~$ sudo apt install xorriso
+
+```
+
+To build the Ubuntu ONIE installer change directories to ubuntu-iso and type the following:
+
+
+```bash
+build-host:~$ cd /ubuntu-iso
+build-host:~/ubuntu-iso$ ./cook-bits.sh
+Downloading Ubuntu Focal mini.iso ...
+...
+Saving to: `./input/ubuntu-focal-amd64-mini.iso'
+
+100%[==================================================================================================>] 29,360,128  3.11M/s   in 8.6s    
+
+2015-10-09 10:15:12 (3.25 MB/s) - `./input/ubuntu-focal-amd64-mini.iso' saved [29360128/29360128]
+
+Creating ./output/ubuntu-focal-amd64-mini-ONIE.bin: .xorriso 1.2.2 : RockRidge filesystem manipulator, libburnia project.
+
+xorriso : NOTE : Loading ISO image tree from LBA 0
+xorriso : UPDATE : 280 nodes read in 1 seconds
+xorriso : NOTE : Detected El-Torito boot information which currently is set to be discarded
+Drive current: -indev './input/ubuntu-focal-amd64-mini.iso'
+Media current: stdio file, overwriteable
+Media status : is written , is appendable
+Boot record  : El Torito , ISOLINUX boot image capable of isohybrid
+Media summary: 1 session, 11098 data blocks, 21.7m data, 1210g free
+Volume id    : 'ISOIMAGE'
+Copying of file objects from ISO image to disk filesystem is: Enabled
+xorriso : UPDATE : 280 files restored ( 21495k) in 1 seconds = 15.9xD
+..... Done.
+```
+
+
+The resulting ONIE installer file is available in the output directory:
+
+```bash
+build-host:~/ubuntu-iso$ ls -l output/
+total 17812
+-rw-r--r-- 1 user user 18238940 Oct  9 10:15 ubuntu-focal-amd64-mini-ONIE.bin
+```
+
+
 
 #### > Method A: Installation via USB
 
@@ -123,7 +182,7 @@ Install Ubuntu
 </ul>
 
 
-#### > Método B: Instalação via Servidor HTTP
+#### > Method B: Installation via HTTP Server
 
 Disponibilizar os Arquivos no Servidor Apache/HTTP
 
@@ -144,7 +203,7 @@ Remove the current operating system.
 
 
 Install Ubuntu
-<ul>🔗
+<ul>
     <li>Reboot Switch → ONIE Menu → ONIE: Install OS → Reboot</li>
 </ul>
 
@@ -167,8 +226,6 @@ Command InstaErro durante a explicação e o motivoll Ubuntu
 ```
 onie-nos-install http://10.21.0.6/ubuntu-focal-amd64-mini-ONIE.bin
 ```
-
-
 
 
 
@@ -215,11 +272,20 @@ docker run -it sdep4 /bin/bash
 ``` 
 
 
-s
+
 ```bash
 docker run --rm alpine ping -c 3 8.8.8.8
 docker run --rm alpine wget -qO- http://google.com
 ``` 
+
+
+
+
+
+
+
+
+
 
 
 Switch information from ONIE after uploading SONIC.
@@ -559,7 +625,7 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 
 
 
-## How to cite //  Reference of the de procediment
+## Reference of the de procediment
 
 ```bash
 @misc{cern_bfsde_installation,
@@ -613,7 +679,7 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 @misc{youtube_vNfMWjSmgfg,
   title        = {Instalação — Vídeo 1},
   howpublished = {YouTube},
-  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/watch?v=vNfMWjSmgfg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
+  url          = {https://www.youtube.com/watch?v=vNfMWjSmgfg},
   note         = {Vídeo online}
 }
 ```
@@ -621,7 +687,7 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 @misc{youtube_oRn9Bb3AsVs,
   title        = {Instalação — Vídeo 2},
   howpublished = {YouTube},
-  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/watch?v=oRn9Bb3AsVs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
+  url          = {https://www.youtube.com/watch?v=oRn9Bb3AsVs},
   note         = {Vídeo online}
 }
 ```
@@ -629,7 +695,18 @@ pktID, srcAddre, destAddr, totalTime, timeout, dataError
 @misc{youtube_Zakdfj3U2yg,
   title        = {Instalação — Vídeo 3},
   howpublished = {YouTube},
-  url          = {<div className="video-container mb-3"><iframe width="100%" height="315" src=" https://www.youtube.com/watch?v=Zakdfj3U2yg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>},
+  url          = {https://www.youtube.com/watch?v=Zakdfj3U2yg},
   note         = {Vídeo online}
+}
+```
+
+
+
+
+## How to cite 
+```bash
+@article{PROGRAMMABLEMID,
+    author = {Pedro Eduarod Camera and Cristiano Bonato Both},
+    title = {Programmable MID - Implementation of a programmable dataplane within the OpenRAN Midhaul for implementing routing protocols}.
 }
 ```
