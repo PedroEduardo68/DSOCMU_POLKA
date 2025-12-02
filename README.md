@@ -348,16 +348,16 @@ Initialize Platform bsp.
 
 
 ```bash
-ubuntu:~$ tar -xzvf bf-platforms-ufispace-bsp-9.13.1.tgz
-ubuntu:~$ cd bf-platforms-ufispace-bsp-9.13.1
-ubuntu:~$ cd bsp
-ubuntu:~$ make
-ubuntu:~$ make install
-ubuntu:~$ cp utils/*.sh /usr/sbin/
-ubuntu:~$ i2c_utils_std.sh i2c_init
+dsa213eds:~$ tar -xzvf bf-platforms-ufispace-bsp-9.13.1.tgz
+dsa213eds:~$ cd bf-platforms-ufispace-bsp-9.13.1
+dsa213eds:~$ cd bsp
+dsa213eds:~$ make
+dsa213eds:~$ make install
+dsa213eds:~$ cp utils/*.sh /usr/sbin/
+dsa213eds:~$ i2c_utils_std.sh i2c_init
 Run simple p4 example
-ubuntu:~$ sudo source prepare_sde.sh
-ubuntu:~$ sudo $SDE/run_switchd.sh -p switch 
+dsa213eds:~$ sudo source prepare_sde.sh
+dsa213eds:~$ sudo $SDE/run_switchd.sh -p switch 
 You will see this screen
 
 BF_SWITCHD DEBUG - bf_switchd: thrift initialized for agent : 0
