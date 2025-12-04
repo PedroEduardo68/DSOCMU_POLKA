@@ -20,3 +20,10 @@ COPY . .
 
 # Default command
 CMD ["/bin/bash"]
+
+
+
+
+# Default command
+# docker build -t sdep4 .
+# docker run -it sdep4 /bin/bash
