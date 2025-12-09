@@ -1,7 +1,6 @@
 ## Programmable MID - Implementation of a programmable dataplane within the OpenRAN Midhaul for implementing routing protocols.
 
-
-O projeto foi uma parceria entre a RNP (Rede Nacional de Ensino e Pesquisa) e a Unisinos (Universidade do Vale do Rio dos Sinos).
+The project was a partnership between RNP (Rede Nacional de Ensino e Pesquisa) and Unisinos (Universidade do Vale do Rio dos Sinos).
 
 <!--
  https://github.com/luciorp/multi-lora
