@@ -1,6 +1,8 @@
 ## Programmable MID - Implementation of a programmable dataplane within the OpenRAN Midhaul for implementing routing protocols.
 
 
+O projeto foi uma parceria entre a RNP (Rede Nacional de Ensino e Pesquisa) e a Unisinos (Universidade do Vale do Rio dos Sinos).
+
 <!--
  https://github.com/luciorp/multi-lora
 -->
@@ -112,7 +114,6 @@ Before building the installer make sure you have wget and xorriso installed on y
 ```bash
 build-host:~$ sudo apt update
 build-host:~$ sudo apt install xorriso
-
 ```
 
 To build the Ubuntu ONIE installer change directories to ubuntu-iso and type the following:
@@ -334,12 +335,12 @@ After you download p4studio from intel.
 ```bash
 dsa213eds:~$ sudo tar -xzvf bf-sde-9.13.1.tgz
 dsa213eds:~$ cd  bf-sde-9.13.1
-dsa213eds:~$ sudo export SDE=/sdep4/bf-sde-9.13.1
-dsa213eds:~$ sudo export SDE_INSTALL=$SDE/install
-dsa213eds:~$ sudo export PATH=$SDE_INSTALL/bin:$PATH
+dsa213eds:~$ export SDE=/sdep4/bf-sde-9.13.1
+dsa213eds:~$ export SDE_INSTALL=$SDE/install
+dsa213eds:~$ export PATH=$SDE_INSTALL/bin:$PATH
 dsa213eds:~$ cd p4studio
-dsa213eds:~$ sudo ./p4studio/p4studio profile apply profile-tf1.yaml
-dsa213eds:~$ sudo ./p4studio dependencies install
+dsa213eds:~$ ./p4studio dependencies install
+dsa213eds:~$ ./p4studio profile apply ../../profile-tf1.yaml
 ```
 
 Now the bf-sde is installed you need to install your correct bsp that matches your platform.
